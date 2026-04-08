@@ -137,6 +137,38 @@ dataset_id, new_report_id = check_import_status(prod_workspace_id, import_id, he
 
 print("Dataset ID:", dataset_id)
 print("Report ID:", new_report_id)
+
+def delete_report(workspace_id, report_id, headers):
+    url = f"https://api.powerbi.com/v1.0/myorg/groups/{workspace_id}/reports/{report_id}"
+    
+    res = requests.delete(url, headers=headers)
+    
+    if res.status_code == 200:
+        print(f"✅ Report {report_id} deleted successfully")
+    elif res.status_code == 404:
+        print(f"⚠️ Report {report_id} not found")
+    else:
+        print(f"❌ Failed to delete report: {res.status_code}, {res.text}")
+
+def delete_dataset(workspace_id, dataset_id, headers):
+    url = f"https://api.powerbi.com/v1.0/myorg/groups/{workspace_id}/datasets/{dataset_id}"
+    
+    res = requests.delete(url, headers=headers)
+    
+    if res.status_code == 200:
+        print(f"✅ Dataset {dataset_id} deleted successfully")
+    elif res.status_code == 404:
+        print(f"⚠️ Dataset {dataset_id} not found")
+    else:
+        print(f"❌ Failed to delete dataset: {res.status_code}, {res.text}")
+
+delete_report(prod_workspace_id, new_report_id, headers)
+delete_dataset(prod_workspace_id, dataset_id, headers)
+
+
+
+
+
 # url = "https://api.powerbi.com/v1.0/myorg/gateways"
 # res = requests.get(url, headers=headers)
 
