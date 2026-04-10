@@ -39,16 +39,22 @@ def generate_file_path(temp_dir, report_name):
     file_path = f"{temp_dir}/{sanitized_report_name}.pbix"
     return file_path
         
+def clean_input(value: str) -> str:
+    return value.strip().strip('"').strip("'")
+
 def get_report_info(report_name:str, workspace_name:str):
+
     """Fetches report information for a given report name and workspace."""
-    headers = get_auth_headers()
-    workspace_id = get_workspace_id(workspace_name, headers)
-    url = f"{settings.POWER_BI_BASE_URL}/groups/{workspace_id}/reports"
+   
+
+    # headers = get_auth_headers()
+    # workspace_id = get_workspace_id(workspace_name, headers)
+    # url = f"{settings.POWER_BI_BASE_URL}/groups/{workspace_id}/reports"
     try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        data = response.json()
-        report_info = report_details(report_name, data)
+        # response = requests.get(url, headers=headers)
+        # response.raise_for_status()
+        # data = response.json()
+        report_info = report_details(report_name, workspace_name)
         
 
         if not report_info:
@@ -90,6 +96,11 @@ def export_pbix(workspace_id, report_id, report_name,headers):
 def export_report(report_name:str, workspace_name:str):
     """Main function to export a report given its name and workspace."""
 
+    report_name = clean_input(report_name)
+    workspace_name = clean_input(workspace_name)
+    print("RAW INPUT report_name:", report_name)
+    print("RAW INPUT workspace_name:", workspace_name)
+
     headers = get_auth_headers()
 
     workspace_id = get_workspace_id(workspace_name, headers)
@@ -111,4 +122,7 @@ def export_report(report_name:str, workspace_name:str):
 if __name__ == "__main__":
     report_name = "invoice-Dashboard"
     workspace_name = "Dev"
+
+    # data=report_details(report_name, workspace_name)
+    # print(data)
     export_report(report_name, workspace_name)

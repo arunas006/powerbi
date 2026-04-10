@@ -72,7 +72,7 @@ def check_import_status(workspace_id: str,
         if status == "Succeeded":   # ✅ FIXED
             dataset_id = data["datasets"][0]["id"]
             report_id = data["reports"][0]["id"]
-            return dataset_id, report_id
+            return {"dataset_id": dataset_id, "report_id": report_id, "status":"Sucess"}
 
         elif status in ["Failed", "Cancelled"]:
             raise Exception(f"Import failed: {data}")

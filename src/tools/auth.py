@@ -43,6 +43,20 @@ def get_auth_headers() -> dict:
         "Content-Type": "application/json"
     }
        
+def health_check() -> str:
+    try:
+        settings = get_settings()
+        url = f"{settings.POWER_BI_BASE_URL}/groups"
+        headers = get_auth_headers()
+
+        response = requests.get(url, headers=headers, timeout=10)
+
+        if response.status_code == 200:
+            return "Healthy"
+        else:
+            return f"Unhealthy (status: {response.status_code})"
+    except Exception as e:
+        return f"Unhealthy (error: {str(e)})"
 
 
 if __name__ == "__main__":
