@@ -41,6 +41,7 @@ class Settings(BaseSettings):
     api_host: str = "0.0.0.0"
     api_port: int = 8000
     api_workers: int = 1
+    BASE_URL: str = "http://localhost:8000"
 
 _settings : Settings | None = None
 

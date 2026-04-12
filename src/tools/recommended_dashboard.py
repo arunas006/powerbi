@@ -173,7 +173,7 @@ def llm_select_dashboard(user_query: str, candidates: list[str]) -> DashboardRes
         return DashboardResponse.model_validate_json(cleaned)
 
 
-def recommend_dashboard(user_query: str,top_n: int) -> dict:
+def recommend_dashboard(user_query: str,top_n: int=3) -> dict:
     top_reports = return_top_reports(user_query, top_n)
     return llm_select_dashboard(user_query, top_reports)
 
