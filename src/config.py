@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     EMBEDDING_DIMENSIONS: int = 1536
 
      # 📂 Temp
-    TEMP_DIR: str = "temp"
+    TEMP_DIR: str = "/tmp/temp"
 
     # ⏱️ Polling
     IMPORT_TIMEOUT: int = 300
