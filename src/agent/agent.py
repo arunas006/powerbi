@@ -33,7 +33,7 @@ def check_health() -> dict:
     If a valid token is successfully returned, the API is considered healthy.
     """
     try:
-        response = requests.get(f"{settings.BASE_URL}/health",timeout=5)
+        response = requests.get(f"{settings.BASE_URL}/health",timeout=10)
         response.raise_for_status()
         return {"status": "healthy"}
 
@@ -54,7 +54,7 @@ def compare_workspaces() -> dict:
 
     try:
         url = f"{settings.BASE_URL}/comparison"
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=15)
         response.raise_for_status()
 
         return {"status": "success", "data": response.json()}
@@ -88,7 +88,7 @@ def recommend_dashboards(user_query: str,top_n: int = 3) -> dict:
             "top_n": top_n
         }
 
-        response = requests.get(url, params=params, timeout=15)
+        response = requests.get(url, params=params, timeout=20)
         response.raise_for_status()
 
         return {"status": "success", "data": response.json()}
