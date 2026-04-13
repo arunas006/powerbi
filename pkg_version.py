@@ -8,7 +8,7 @@ packages = [
 "numpy",
 "streamlit",
 "fastapi",
-"uvicorn[standard]",
+"uvicorn",
 "langchain",
 "langchain-openai",
 "langchain-community",
